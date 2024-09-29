@@ -1,11 +1,18 @@
+from db .database_functions import save_gps_data
 
 def save_coordinates(data) -> tuple:
+
     if 'latitude' not in data:
-        return (False, 'Latitude not set')
+        return (-1, 'Latitude not set')
     if  'longitude' not in data:
-        return (False, 'Longitude not set')
-    #TODO save function here
+        return (-1, 'Longitude not set')
+    if 'deviceId' not in data:
+        return  (-1, 'deviceId not set')
     
-    return (True, 'Location data saved')
+    if 'save' in data:
+        save_gps_data(data)
+        return (1, 'Saved data location')
+
+    return (1, 'Data location recieved')
 
     

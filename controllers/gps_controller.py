@@ -19,7 +19,7 @@ class GPSController(Resource):
     @sio.event
     def add_room_devices(sid):
         sio.enter_room(sid, 'devices')
-        print('connect ', sid)
+        print(f'added {sid} to group devices')
 
 
     def get(self):
@@ -30,9 +30,9 @@ class GPSController(Resource):
         result = save_coordinates(request.json)
         response = {'message' : result[1]}
 
-        if not result[0]:
+        if result[0] == -1:
             return response, 400
         else :
-            sio.emit('updated coordinates', request.json, room='devices')
+            sio.emit(request.json["deviceId"], request.json, room='devices')
             return response
 
