@@ -9,7 +9,7 @@ def save_coordinates(data) -> tuple:
     if 'deviceId' not in data:
         return  (-1, 'deviceId not set')
     
-    if 'save' in data:
+    if data.get("save"):
         save_gps_data(data)
         return (1, 'Saved data location')
 
