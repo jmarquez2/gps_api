@@ -37,6 +37,13 @@ def get_devices(id : str):
 
     data = table.query(IndexName='userId-index', KeyConditionExpression = Key('userId').eq(id))
     return data.get("Items")
+
+def get_locations(id : str):
+    table = _get_table("location")
+
+    data = table.query(IndexName = 'deviceId-index',  KeyConditionExpression = Key('deviceId').eq(id), ScanIndexForward=False, Limit=5)
+
+    return data.get("Items")
     
 
 
